@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         置頂顯示 iROIS 之計畫參數
+// @name         iROIS 小幫手: 置頂顯示報到/治療資訊計畫參數
 // @namespace    josesun@gmail.com
 // @version      1.0
 // @description  將 iROIS 報到/治療資訊中病人之計畫參數/治療記錄置頂顯示，避免需要一直上下捲動
@@ -15,14 +15,14 @@ var thisElement;
 //Plan Dose Table on left corner in screen
 var elementDoseTable = document.getElementsByClassName("over-flow-scroll")[0];
 var newDoseTableDiv = document.createElement("div");
-newDoseTableDiv.setAttribute("class","over-flow-scroll");
+newDoseTableDiv.setAttribute("class", "over-flow-scroll");
 
 var name = document.getElementsByClassName("row")[4].getElementsByClassName("col-md-8")[0].innerText;
 var pid = document.getElementsByClassName("row")[5].getElementsByClassName("col-md-8")[0].innerText;
 var namePosBefore = name.indexOf("(")
 var namePosAfter = name.indexOf(")") + 1
-var nameChinese = name.substring(0,namePosBefore)
-var nameEnglish = name.substring(namePosBefore,namePosAfter)
+var nameChinese = name.substring(0, namePosBefore)
+var nameEnglish = name.substring(namePosBefore, namePosAfter)
 
 newDoseTableDiv.innerHTML = "<div style='font-size:20px; margin-bottom:0.5rem'><strong>姓名：</strong> " + nameChinese + " " + nameEnglish + " <br> <strong>病歷號：</strong> " + pid + " </div>" + elementDoseTable.innerHTML;
 
@@ -49,9 +49,9 @@ for (var i = 0; i < newDoseTableDivTable.length; i++) {
 //Course Info on left top corner in screen
 var elementCourseInfo = document.getElementsByClassName("over-flow-scroll")[3];
 
-if (elementCourseInfo.innerText.indexOf("治療部位") >= 0 ) { // Check if it's coruse info table
+if (elementCourseInfo.innerText.indexOf("治療部位") >= 0) { // Check if it's coruse info table
     var newCourseDiv = document.createElement("div");
-    newCourseDiv.setAttribute("class","green bg-white");
+    newCourseDiv.setAttribute("class", "green bg-white");
     newCourseDiv.innerHTML = elementCourseInfo.innerHTML;
     dragElement(newCourseDiv)
 
@@ -68,7 +68,7 @@ if (elementCourseInfo.innerText.indexOf("治療部位") >= 0 ) { // Check if it'
     newCourseDiv.style.zIndex = "100";
 
     var newCourseDivTable = newCourseDiv.getElementsByClassName("table table-hover res-table  last-table")[0];
-    newCourseDivTable.setAttribute("class","table-hover res-table last-table");
+    newCourseDivTable.setAttribute("class", "table-hover res-table last-table");
 
     var newCourseDivTableTh = newCourseDivTable.getElementsByTagName('th');
     for (var j = 0; j < newCourseDivTableTh.length; j++) {
