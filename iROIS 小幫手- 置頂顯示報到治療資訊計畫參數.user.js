@@ -1,12 +1,11 @@
 // ==UserScript==
 // @name         iROIS 小幫手: 置頂顯示報到/治療資訊計畫參數
 // @namespace    josesun@gmail.com
-// @version      1.0
+// @version      1.1
 // @description  將 iROIS 報到/治療資訊中病人之計畫參數/治療記錄置頂顯示，避免需要一直上下捲動
 // @author       Jose Sun
 // @match        http://10.103.250.202/iROIS/CallPatient/Edit/*
 // @match        http://196.254.100.230/iROIS/CallPatient/Edit/*
-// @icon         https://www.google.com/s2/favicons?domain=250.202
 // @grant        none
 // ==/UserScript==
 "use strict";
@@ -15,14 +14,14 @@ var thisElement;
 //Plan Dose Table on left corner in screen
 var elementDoseTable = document.getElementsByClassName("over-flow-scroll")[0];
 var newDoseTableDiv = document.createElement("div");
-newDoseTableDiv.setAttribute("class", "over-flow-scroll");
+newDoseTableDiv.setAttribute("class","over-flow-scroll");
 
 var name = document.getElementsByClassName("row")[4].getElementsByClassName("col-md-8")[0].innerText;
 var pid = document.getElementsByClassName("row")[5].getElementsByClassName("col-md-8")[0].innerText;
 var namePosBefore = name.indexOf("(")
 var namePosAfter = name.indexOf(")") + 1
-var nameChinese = name.substring(0, namePosBefore)
-var nameEnglish = name.substring(namePosBefore, namePosAfter)
+var nameChinese = name.substring(0,namePosBefore)
+var nameEnglish = name.substring(namePosBefore,namePosAfter)
 
 newDoseTableDiv.innerHTML = "<div style='font-size:20px; margin-bottom:0.5rem'><strong>姓名：</strong> " + nameChinese + " " + nameEnglish + " <br> <strong>病歷號：</strong> " + pid + " </div>" + elementDoseTable.innerHTML;
 
@@ -39,19 +38,24 @@ newDoseTableDiv.style.cursor = "move";
 //newDoseTableDiv.style.zIndex = "1";
 dragElement(newDoseTableDiv)
 
-var newDoseTableDivTable = newDoseTableDiv.getElementsByClassName('table text-center'); // remove Prescription row for every table, because too long
-for (var i = 0; i < newDoseTableDivTable.length; i++) {
-    const item = newDoseTableDivTable[i].getElementsByTagName('tr')[1];
-    item.parentNode.removeChild(item);
+// if dose table is for Photon, then remove Prescription row for every table, because too long
+var newDoseTableDivTable = newDoseTableDiv.getElementsByClassName('table text-center');
+var newDoseTableDivTh = newDoseTableDiv.getElementsByClassName('field')[0];
+
+if (newDoseTableDivTh.textContent == 'Field / Disease Name') {
+    for (var i = 0; i < newDoseTableDivTable.length; i++) {
+        const item = newDoseTableDivTable[i].getElementsByTagName('tr')[1];
+        item.parentNode.removeChild(item);
+    }
 }
 
 
 //Course Info on left top corner in screen
 var elementCourseInfo = document.getElementsByClassName("over-flow-scroll")[3];
 
-if (elementCourseInfo.innerText.indexOf("治療部位") >= 0) { // Check if it's coruse info table
+if (elementCourseInfo.innerText.indexOf("治療部位") >= 0 ) { // Check if it's coruse info table
     var newCourseDiv = document.createElement("div");
-    newCourseDiv.setAttribute("class", "green bg-white");
+    newCourseDiv.setAttribute("class","green bg-white");
     newCourseDiv.innerHTML = elementCourseInfo.innerHTML;
     dragElement(newCourseDiv)
 
@@ -68,7 +72,7 @@ if (elementCourseInfo.innerText.indexOf("治療部位") >= 0) { // Check if it's
     newCourseDiv.style.zIndex = "100";
 
     var newCourseDivTable = newCourseDiv.getElementsByClassName("table table-hover res-table  last-table")[0];
-    newCourseDivTable.setAttribute("class", "table-hover res-table last-table");
+    newCourseDivTable.setAttribute("class","table-hover res-table last-table");
 
     var newCourseDivTableTh = newCourseDivTable.getElementsByTagName('th');
     for (var j = 0; j < newCourseDivTableTh.length; j++) {
