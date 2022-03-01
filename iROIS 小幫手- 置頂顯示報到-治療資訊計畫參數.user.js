@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         iROIS 小幫手: 置頂顯示報到/治療資訊計畫參數
 // @namespace    josesun@gmail.com
-// @version      1.1
+// @version      1.3
 // @description  將 iROIS 報到/治療資訊中病人之計畫參數/治療記錄置頂顯示，避免需要一直上下捲動
 // @author       Jose Sun
 // @match        http://10.103.250.202/iROIS/CallPatient/Edit/*
@@ -16,8 +16,10 @@ var elementDoseTable = document.getElementsByClassName("over-flow-scroll")[0];
 var newDoseTableDiv = document.createElement("div");
 newDoseTableDiv.setAttribute("class","over-flow-scroll");
 
-var name = document.getElementsByClassName("row")[4].getElementsByClassName("col-md-8")[0].innerText;
-var pid = document.getElementsByClassName("row")[5].getElementsByClassName("col-md-8")[0].innerText;
+var elementPatientRow = document.querySelector("#CallPatientForm > div.card-papper > div > div > div");
+//alert(elementPatientRow.innerText);
+var name = elementPatientRow.getElementsByClassName("row")[0].getElementsByClassName("col-md-8")[0].innerText;
+var pid = elementPatientRow.getElementsByClassName("row")[1].getElementsByClassName("col-md-8")[0].innerText;
 var namePosBefore = name.indexOf("(")
 var namePosAfter = name.indexOf(")") + 1
 var nameChinese = name.substring(0,namePosBefore)
@@ -31,7 +33,7 @@ newDoseTableDivpos.parentNode.insertBefore(newDoseTableDiv, newDoseTableDivpos.n
 newDoseTableDiv.style.position = "fixed";
 newDoseTableDiv.style.fontSize = "19px";
 newDoseTableDiv.style.left = "60px";
-newDoseTableDiv.style.bottom = "140px";
+newDoseTableDiv.style.bottom = "120px";
 newDoseTableDiv.style.backgroundColor = "#FFFFFFCC";
 newDoseTableDiv.style.border = "3px red solid";
 newDoseTableDiv.style.cursor = "move";
@@ -86,9 +88,9 @@ if (elementCourseInfo.innerText.indexOf("治療部位") >= 0 ) { // Check if it'
 if (document.getElementById("ReduceFX")) {
     var elementReduceFx = document.getElementById("ReduceFX");
     elementReduceFx.style.position = "absolute";
-    elementReduceFx.style.left = "400px";
-    elementReduceFx.style.top = "0px";
-    elementReduceFx.style.width = "auto";
+    elementReduceFx.style.left = "330px";
+    elementReduceFx.style.top = "-25px";
+    elementReduceFx.style.width = "800px";
 }
 
 
