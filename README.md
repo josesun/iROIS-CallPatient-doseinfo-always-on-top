@@ -15,7 +15,7 @@
 * Chrome , Edge 可安裝  [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW)
 * Firefox 可安裝 [Violentmonkey](https://addons.mozilla.org/zh-TW/firefox/addon/violentmonkey/)
 
-之後下載並從上述的套件中匯入 **iROIS 小幫手- 置頂顯示報到治療資訊計畫參數.user.js** 即可。
+之後下載並從上述的套件中匯入 **iROIS 小幫手- 報到-治療資訊版面優化.user.js** 即可。
 
 下次開啟 iROIS 的報到/治療資訊中每個病人的編輯畫面就會看到變化。
 

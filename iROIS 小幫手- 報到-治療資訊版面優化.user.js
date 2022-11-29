@@ -1,12 +1,14 @@
-// ==UserScript==
-// @name         iROIS 小幫手: 置頂顯示報到/治療資訊計畫參數
+﻿// ==UserScript==
+// @name         iROIS 小幫手: 報到/治療資訊版面優化
 // @namespace    josesun@gmail.com
-// @version      1.3
+// @version      1.5
 // @description  將 iROIS 報到/治療資訊中病人之計畫參數/治療記錄置頂顯示，避免需要一直上下捲動
 // @author       Jose Sun
 // @match        http://10.103.250.202/iROIS/CallPatient/Edit/*
 // @match        http://196.254.100.230/iROIS/CallPatient/Edit/*
 // @grant        none
+// @downloadURL  https://www.dropbox.com/s/xth9if21i26k9p4/iROIS%20%E5%B0%8F%E5%B9%AB%E6%89%8B-%20%E5%A0%B1%E5%88%B0-%E6%B2%BB%E7%99%82%E8%B3%87%E8%A8%8A%E7%89%88%E9%9D%A2%E5%84%AA%E5%8C%96.user.js?dl=1
+// @updateURL    https://www.dropbox.com/s/xth9if21i26k9p4/iROIS%20%E5%B0%8F%E5%B9%AB%E6%89%8B-%20%E5%A0%B1%E5%88%B0-%E6%B2%BB%E7%99%82%E8%B3%87%E8%A8%8A%E7%89%88%E9%9D%A2%E5%84%AA%E5%8C%96.user.js?dl=1
 // ==/UserScript==
 "use strict";
 var thisElement;
@@ -89,7 +91,7 @@ if (document.getElementById("ReduceFX")) {
     var elementReduceFx = document.getElementById("ReduceFX");
     elementReduceFx.style.position = "absolute";
     elementReduceFx.style.left = "330px";
-    elementReduceFx.style.top = "-25px";
+    elementReduceFx.style.top = "-53px";
     elementReduceFx.style.width = "800px";
 }
 
