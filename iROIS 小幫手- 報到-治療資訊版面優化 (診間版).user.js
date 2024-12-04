@@ -1,60 +1,17 @@
 ﻿// ==UserScript==
-// @name         iROIS 小幫手: 報到/治療資訊版面優化
+// @name         iROIS 小幫手: 報到/治療資訊版面優化 (診間版)
 // @namespace    josesun@gmail.com
-// @version      1.8
-// @description  1. 將 iROIS 報到/治療資訊中病人之計畫參數/治療記錄置頂顯示，避免需要一直上下捲動
-// @             2. 將 iROIS 小幫手跳出的訊息使其可以拖動
+// @version      1.1
+// @description  將 iROIS 報到/治療資訊中病人之計畫參數/治療記錄置頂顯示，避免需要一直上下捲動
 // @author       Jose Sun
 // @match        http://10.103.250.202/iROIS/CallPatient/Edit/*
 // @match        http://196.254.100.230/iROIS/CallPatient/Edit/*
 // @grant        none
-// @downloadURL  https://www.dropbox.com/s/xth9if21i26k9p4/iROIS%20%E5%B0%8F%E5%B9%AB%E6%89%8B-%20%E5%A0%B1%E5%88%B0-%E6%B2%BB%E7%99%82%E8%B3%87%E8%A8%8A%E7%89%88%E9%9D%A2%E5%84%AA%E5%8C%96.user.js?dl=1
-// @updateURL    https://www.dropbox.com/s/xth9if21i26k9p4/iROIS%20%E5%B0%8F%E5%B9%AB%E6%89%8B-%20%E5%A0%B1%E5%88%B0-%E6%B2%BB%E7%99%82%E8%B3%87%E8%A8%8A%E7%89%88%E9%9D%A2%E5%84%AA%E5%8C%96.user.js?dl=1
+// @downloadURL  https://www.dropbox.com/s/slqmlzjp44zpon5/iROIS%20%E5%B0%8F%E5%B9%AB%E6%89%8B-%20%E5%A0%B1%E5%88%B0-%E6%B2%BB%E7%99%82%E8%B3%87%E8%A8%8A%E7%89%88%E9%9D%A2%E5%84%AA%E5%8C%96%20%28%E8%A8%BA%E9%96%93%E7%89%88%29.user.js?dl=1
+// @updateURL    https://www.dropbox.com/s/slqmlzjp44zpon5/iROIS%20%E5%B0%8F%E5%B9%AB%E6%89%8B-%20%E5%A0%B1%E5%88%B0-%E6%B2%BB%E7%99%82%E8%B3%87%E8%A8%8A%E7%89%88%E9%9D%A2%E5%84%AA%E5%8C%96%20%28%E8%A8%BA%E9%96%93%E7%89%88%29.user.js?dl=1
 // ==/UserScript==
 "use strict";
 var thisElement;
-
-//Plan Dose Table on left corner in screen
-var elementDoseTable = document.getElementsByClassName("over-flow-scroll")[0];
-var newDoseTableDiv = document.createElement("div");
-newDoseTableDiv.setAttribute("class","over-flow-scroll");
-
-var elementPatientRow = document.querySelector("#CallPatientForm > div.card-papper > div > div > div");
-//alert(elementPatientRow.innerText);
-var name = elementPatientRow.getElementsByClassName("row")[0].getElementsByClassName("col-md-8")[0].innerText;
-var pid = elementPatientRow.getElementsByClassName("row")[1].getElementsByClassName("col-md-8")[0].innerText;
-var namePosBefore = name.indexOf("(")
-var namePosAfter = name.indexOf(")") + 1
-var nameChinese = name.substring(0,namePosBefore)
-var nameEnglish = name.substring(namePosBefore,namePosAfter)
-
-newDoseTableDiv.innerHTML = "<div style='font-size:20px; margin-bottom:0.5rem'><strong>姓名：</strong> " + nameChinese + " " + nameEnglish + " <br> <strong>病歷號：</strong> " + pid + " </div>" + elementDoseTable.innerHTML;
-
-var newDoseTableDivpos = document.getElementById("alert-box");
-newDoseTableDivpos.parentNode.insertBefore(newDoseTableDiv, newDoseTableDivpos.nextSibling);
-
-newDoseTableDiv.style.position = "fixed";
-newDoseTableDiv.style.fontSize = "19px";
-newDoseTableDiv.style.left = "60px";
-newDoseTableDiv.style.bottom = "120px";
-newDoseTableDiv.style.backgroundColor = "#FFFFFFCC";
-newDoseTableDiv.style.border = "3px red solid";
-newDoseTableDiv.style.cursor = "move";
-newDoseTableDiv.style.zIndex = "100";
-dragElement(newDoseTableDiv)
-
-// if dose table is for Photon, then remove Prescription row for every table, because too long
-var newDoseTableDivTable = newDoseTableDiv.getElementsByClassName('table text-center');
-var newDoseTableDivTh = newDoseTableDiv.getElementsByTagName('th')[0];
-
-if (newDoseTableDivTh.textContent == 'Field / Disease Name') {
-    for (var i = 0; i < newDoseTableDivTable.length; i++) {
-        const item = newDoseTableDivTable[i].getElementsByTagName('tr')[1];
-        item.parentNode.removeChild(item);
-    }
-}
-
-
 //Course Info on left top corner in screen
 var elementCourseInfo = document.getElementsByClassName("over-flow-scroll")[3];
 
@@ -96,12 +53,6 @@ if (document.getElementById("ReduceFX")) {
     elementReduceFx.style.width = "800px";
 }
 
-//make pageMessageBox draggable
-if (document.getElementById("pageMessageBox")) {
-    var pageMessageBoxDivpos1 = document.getElementById("pageMessageBox");
-    pageMessageBoxDivpos1.style.cursor = "move";
-    dragElement(pageMessageBoxDivpos1);
-}
 
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
